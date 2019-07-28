@@ -1,0 +1,29 @@
+create or replace function firstletter(v_input in varchar2)
+return varchar2
+as
+v_length number;
+v_start number;
+v_output varchar2(100) := ' ';
+
+begin
+
+v_length := length(v_input);
+v_start  := 1;
+
+for i in 2..v_length
+loop
+
+if upper(substr(v_input,i,1)) = substr(v_input,i,1) 
+then
+v_output := v_output||'_'||substr(v_input,v_start,(i-v_start)); 
+v_start := i;
+end if;
+
+end loop;
+
+v_output := v_output||'_'||substr(v_input,v_start,(length(v_input)-v_start)+1); 
+
+return (v_output);
+
+end firstletter;
+/
